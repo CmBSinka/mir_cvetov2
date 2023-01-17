@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\controllers;
 
 use app\models\Order;
 use app\models\OrderSearch;

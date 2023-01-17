@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\controllers;
 
 use app\models\Product;
 use app\models\ProductSearch;
@@ -46,7 +46,16 @@ class ProductController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionCatalog()
+    {
+        $searchModel = new ProductSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
 
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     /**
      * Displays a single Product model.
      * @param int $id ID

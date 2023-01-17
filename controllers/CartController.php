@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\controllers;
 
 use app\models\Cart;
 use app\models\CartSearch;

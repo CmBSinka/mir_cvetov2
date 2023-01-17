@@ -86,25 +86,25 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return static::findOne(['access_token' => $token]);
     }
 
-    public function getId()
+   public function getId()
     {
         return $this->id;
     }
 
     public function getAuthKey()
     {
-        return $this->authKey;
+        return;
     }
 
     public function validateAuthKey($authKey)
     {
-        return $this->authKey === $authKey;
+        return;
     }
     public function validatePassword($password)
     {
         return $this->password==$password;
     }
-    public static function findByEmail($login)
+    public static function findByLogin($login)
     {
         return self::find()->where(['login'=> $login])->one();
     }

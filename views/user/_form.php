@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 //use yii\widgets\ActiveForm;
 use yii\bootstrap5\ActiveForm;
+use yii\widgets\Pjax;
 /** @var yii\web\View $this */
 /** @var app\models\User $model */
 /** @var yii\widgets\ActiveForm $form */
@@ -20,7 +21,7 @@ use yii\bootstrap5\ActiveForm;
 
     <?= $form->field($model, 'login')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'email', ['enableAjaxValidation' => true])->textInput(['maxlength' => true],) ?>
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
