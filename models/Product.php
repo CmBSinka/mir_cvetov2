@@ -40,7 +40,8 @@ class Product extends \yii\db\ActiveRecord
             [['name', 'price', 'country', 'image', 'color'], 'required'],
             [['price', 'category_id', 'count'], 'integer'],
             [['data'], 'safe'],
-            [['name', 'country', 'image', 'color'], 'string', 'max' => 255],
+            [['image'], 'file',  'extensions' => ['png', 'jpg', 'gif'],'skipOnEmpty' => false ],
+            [['name', 'country', 'color'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
         ];
     }

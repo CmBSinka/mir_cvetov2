@@ -6,6 +6,14 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var app\models\Product $model */
 /** @var yii\widgets\ActiveForm $form */
+
+$li=[];
+$categories=\app\models\Category::find()->all();
+foreach ($categories as $category)
+{
+    $li[$category->id]=$category->categoria;
+}
+
 ?>
 
 <div class="product-form">
@@ -14,19 +22,22 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+
+
     <?= $form->field($model, 'price')->textInput() ?>
 
     <?= $form->field($model, 'country')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'image')->fileInput() ?>
 
-    <?= $form->field($model, 'category_id')->textInput() ?>
+    <?= $form->field($model, 'category_id')->dropDownList($li)?>
 
     <?= $form->field($model, 'color')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'count')->textInput() ?>
 
     <!--<?= $form->field($model, 'data')->textInput() ?>-->
+
 
 
     <div class="form-group">

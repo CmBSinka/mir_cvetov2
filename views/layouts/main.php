@@ -33,7 +33,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <?php
     if (Yii::$app->user->isGuest){
         $items=[
-            ['label' => 'Каталог', 'url' => ['/product/index']],
+            ['label' => 'Каталог', 'url' => ['/product/catalog?sort=-data']],
             ['label' => 'О нас', 'url' => ['/site/about']],
             ['label' => 'Где нас найти', 'url' => ['/site/contact']],
             ['label' => 'Регистрация', 'url' => ['/user/create']],
@@ -46,7 +46,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             ])
             :
             ($items=[
-                ['label' => 'Каталог', 'url' => ['/product/create']],
+                ['label' => 'Каталог', 'url' => ['/product/catalog?sort=-data']],
                 ['label' => 'О нас', 'url' => ['/site/about']],
                 ['label' => 'Где нас найти', 'url' => ['/site/contact']],
                 ['label' => 'Корзина', 'url' => ['/cart/index']],

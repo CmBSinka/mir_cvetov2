@@ -12,44 +12,41 @@ use yii\grid\GridView;
 
 $this->title = 'Каталог товаров';
 $this->params['breadcrumbs'][] = $this->title;
-echo "<h1>Каталог товаров</h1>
-<!--Поместите здесь элементы управления каталогом в
-соответсвии с заданием-->
+echo "    <h1>Каталог товаров</h1>
+  <style>
+   .gty {
+    border: 1px solid red;
+    padding: 10px;
+   }
+  </style>
+  <div class='gty'>
+  <h2>Сортировка</h2>
+  <div>
+  <p><a href='https://pr-yanulyavichus.сделай.site/product/catalog?sort=price'>↑</a>По цене<a href='https://pr-yanulyavichus.сделай.site/product/catalog?sort=-price'>↓</a></p>
+    <p><a href='https://pr-yanulyavichus.сделай.site/product/catalog?sort=name'>↑</a>По имени<a href='https://pr-yanulyavichus.сделай.site/product/catalog?sort=-name'>↓</a></p>
+    <p><a href='https://pr-yanulyavichus.сделай.site/product/catalog?sort=country'>↑</a>По стране<a href='https://pr-yanulyavichus.сделай.site/product/catalog?sort=-country'>↓</a></p>
+  </div>
+  </div>
 ";
+$products=$dataProvider->getModels();
+echo "<div class='d-flex flex-row flex-wrap justify-content-start border border-1 border-info align-items-end'>";
+foreach ($products as $product){
+if ($product->count>0) {
+    echo "<div class='card m-1' style='width: 22%; min-width: 300px;'>
+    <a href='/product/view?id={$product->id}'><img src='{$product->image}'class='card-img-top' style='max-height: 300px;' alt='image'></a>
+<div class='card-body'>
+<h5 class='card-title'>{$product->name}</h5>
+<p class='text-danger'>{$product->price} руб</p>";
+echo (Yii::$app->user->isGuest ? "<a href='/product/view?id={$product->id}' class='btn btn-primary'>Просмотр товара</a>": "<p onclick='add_product({$product->id})' class='btn btn-primary'>Добавить в корзину</p>");
+    echo "</div>
+</div>";}
+}
+echo "</div>";
 ?>
 <div class="product-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Создание товара', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'name',
-            'price',
-            'country',
-            'image',
-            //'category_id',
-            //'color',
-            //'count',
-            //'data',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Product $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                }
-            ],
-        ],
-    ]); ?>
 
 
 </div>
