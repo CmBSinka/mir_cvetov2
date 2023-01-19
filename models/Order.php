@@ -49,11 +49,11 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'product_id' => 'Product ID',
-            'count' => 'Count',
-            'status' => 'Status',
-            'reason' => 'Reason',
+            'user_id' => 'Пользователь ID',
+            'product_id' => 'Товар ID',
+            'count' => 'Количество',
+            'status' => 'Статус',
+            'reason' => 'Причина',
         ];
     }
 

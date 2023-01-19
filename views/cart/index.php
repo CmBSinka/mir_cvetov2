@@ -17,9 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Cart', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -29,10 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'user_id',
-            'product_id',
-            'count',
+            //'id',
+            //'user_id',
+            //'product_id',
+            ['attribute'=>'Товар', 'value'=> function($data){return $data->getProduct()->One()->name;}],
+            ['attribute'=>'Количество', 'value'=> function($data){return $data->count;}],
+            //['attribute'=>'Управление', 'format'=>'html', 'value'=>function($data){return \yii\bootstrap5\Button::widget(['label' => 'Добаить товар', 'options' => ['class' => 'btn-lg'],]);}],
+            //'count',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Cart $model, $key, $index, $column) {
@@ -40,7 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
                  }
             ],
         ],
-    ]); ?>
+    ]);
+    ?>
 
 
 </div>

@@ -4,9 +4,11 @@ namespace app\controllers;
 
 use app\models\Cart;
 use app\models\CartSearch;
+use app\models\Product;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * CartController implements the CRUD actions for Cart model.
@@ -65,21 +67,34 @@ class CartController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
-    {
-        $model = new Cart();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
+    public function actionCreate(){
+        $product_id = Yii::$app->request->post('product_id');
+        $items=Yii::$app->request->post('count');
+        $product = Product::findOne($product_id);
+        if (!$product) return false;
+        if ($product->count > 0)
+        {
+            $product->count -= $items;
+            $product->save(false);
+            $model = cart::find()->where(['user_id' => Yii::$app->user->identity->id])-> andWhere(['product_id' => $product_id])->one();
+        if ($model)
+        {
+            $model->count += $items;
+            $model->save();
+            return $product->count;
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        $model = new cart();
+        $model->user_id = Yii::$app->user->identity->id;
+        $model->product_id = $product->id;
+        $model->count = $items;
+        if ($model->save(false)) return $product->count;
+        }
+        return 'false';
+    }
+    public function beforeAction($action)
+    {
+        if ($action->id=='create') $this->enableCsrfValidation=false;
+        return parent::beforeAction($action);
     }
 
     /**
@@ -92,6 +107,9 @@ class CartController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $count=Yii::$app->request->post('count');
+        $product=$model->getProduct()->one();
+        if ($product->count<$count)
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

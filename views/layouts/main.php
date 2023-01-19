@@ -49,7 +49,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 ['label' => 'Каталог', 'url' => ['/product/catalog?sort=-data']],
                 ['label' => 'О нас', 'url' => ['/site/about']],
                 ['label' => 'Где нас найти', 'url' => ['/site/contact']],
-                ['label' => 'Корзина', 'url' => ['/cart/index']],
+                ['label' => 'Корзина', 'url' => ['/cart/index?CartSearch[user_id]='.Yii::$app->user->identity->id]],
                 ['label' => 'Заказы', 'url' => ['/order/index']],
                 ]);
         array_push($items, '<li class="nav-item">'
@@ -86,7 +86,23 @@ fixed-top']]);
 </main>
 
 <footer id="footer" class="mt-auto py-3 bg-light">
-    <div class="container">
+    <script src="/web/JS/CartAdd.js"></script>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="container">
         <div class="row text-muted">
             <div class="col-md-6 text-center text-md-start">&copy; My Company <?= date('Y') ?></div>
             <div class="col-md-6 text-center text-md-end"><?= Yii::powered() ?></div>

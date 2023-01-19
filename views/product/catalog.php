@@ -36,7 +36,7 @@ echo "    <h1>Каталог товаров</h1>
   </div>
 ";?>
 <div class="dropdown">
-    <a href="#" data-toggle="dropdown" class="dropdown-toggle">Label <b class="caret"></b></a>
+
 
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -46,7 +46,7 @@ echo "    <h1>Каталог товаров</h1>
             <?php
             $items='';
             foreach ($categories as $category) {
-                $items .= " <li><a class='dropdown-item' href='/product/catalog?ProductSearh[category_id={$category->id}'>$category->categoria</a></li>";
+                $items .= " <li><a class='dropdown-item' href='/product/catalog?ProductSearch[category_id]={$category->id}'>$category->categoria</a></li>";
             }
             echo $items;
 
@@ -64,7 +64,7 @@ if ($product->count>0) {
 <div class='card-body'>
 <h5 class='card-title'>{$product->name}</h5>
 <p class='text-danger'>{$product->price} руб</p>";
-echo (Yii::$app->user->isGuest ? "<a href='/product/view?id={$product->id}' class='btn btn-primary'>Просмотр товара</a>": "<p onclick='add_product({$product->id})' class='btn btn-primary'>Добавить в корзину</p>");
+echo (Yii::$app->user->isGuest ? "<a href='/product/view?id={$product->id}' class='btn btn-primary'>Просмотр товара</a>": "<p onclick='add_product({$product->id},1)' class='btn btn-primary'>Добавить в корзину</p>");
     echo "</div>
 </div>";}
 }
