@@ -24,3 +24,10 @@ function add_product(id, items){
             myModal.show();
         })
 }
+
+function test(cells)
+{
+   let a=cells;
+   let product= this.parentNode//.parentNode.rows[1].value
+   let i=0;
+}
