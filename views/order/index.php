@@ -10,16 +10,14 @@ use yii\grid\GridView;
 /** @var app\models\OrderSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Orders';
+$this->title = 'Заказ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="order-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Order', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+   <!-- <p><?=Html::a('Подтвердите заказ из корзины', ['create'], ['class' => 'btn btn-success']) ?></p>-->
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -29,18 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'user_id',
-            'product_id',
+            //'id',
+            //'user_id',
+            ['attribute'=>'Товар', 'value'=> function($data){return $data->getProduct()->One()->name;}],
             'count',
             'status',
             //'reason',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Order $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
-            ],
         ],
     ]); ?>
 

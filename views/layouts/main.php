@@ -42,6 +42,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     else {
         Yii::$app->user->identity->is_admin==1 ?
             ( $items=[
+                ['label' => 'Заказы', 'url' => ['/order/index']],
+                ['label' => 'Каталог', 'url' => ['/product/index']],
                 ['label' => 'Панель администратора', 'url' => ['/admin/index']],
             ])
             :
@@ -50,7 +52,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 ['label' => 'О нас', 'url' => ['/site/about']],
                 ['label' => 'Где нас найти', 'url' => ['/site/contact']],
                 ['label' => 'Корзина', 'url' => ['/cart/index?CartSearch[user_id]='.Yii::$app->user->identity->id]],
-                ['label' => 'Заказы', 'url' => ['/order/index']],
+                ['label' => 'Заказы', 'url' => ['/order/index?OrderSearch[user_id]='.Yii::$app->user->identity->id]],
                 ]);
         array_push($items, '<li class="nav-item">'
             . Html::beginForm(['/site/logout'])

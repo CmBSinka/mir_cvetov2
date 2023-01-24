@@ -67,19 +67,17 @@ class OrderController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Order();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
+        $carts=\app\models\Cart::find()->where(['user_id'=>\Yii::$app->user->identity->id])->all();
+        foreach ($carts as $cart)
+        {
+            $order = new \app\models\Order();
+            $order->user_id=\Yii::$app->user->identity->id;
+            $order->product_id=$cart->product_id;
+            $order->count=$cart->count;
+            $order->save(false);
+            $cart->delete();
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        return $this->redirect(['/order/index?OrderSearch[user_id]=' . \Yii::$app->user->identity->id]);
     }
 
     /**

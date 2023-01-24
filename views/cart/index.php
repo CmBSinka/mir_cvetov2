@@ -21,36 +21,39 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            //'id',
-            //'user_id',
-            'product_id',
-            ['attribute'=>'Товар', 'value'=> function($data){return $data->getProduct()->One()->name;}],
-            ['attribute'=>'Количество', 'value'=> function($data){return $data->count;}],
-            ['attribute'=>'Управление', 'format'=>'html' , 'value'=>function($data){ return;}],
-            //'count',
-            //echo "<button class='btn btn-secondary' onclick='add_product2({$data->getProduct()->One()->id},1)'>+</button><tr>  </tr><button class='btn btn-secondary' onclick='add_product2({$data->getProduct()->One()->id},-1)'>-</button>";
-           // ['attribute'=>'Управление', 'format'=>'html', 'value'=>function($data){return <button class='btn btn-outline-primary mr-3' onclick='update(this.parentNode.parentNode.rowIndex, 8, 1)'>+</button>}
-           // <button class='btn btn-outline-primary mr-3' onclick='update(this.parentNode.parentNode.rowIndex, 8, 1)'>+</button>
-            //<button class='btn btn-outline-primary mr-3' onclick='update(this.parentNode.parentNode.rowIndex, 8, -1)'>-</button>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Товар</th>
+            <th scope="col">Цена</th>
+            <th scope="col">Количество</th>
+        </tr>
+        </thead>
+        <tbody>
 
-        ],
-    ]);
-    ?>
-    <script>
+        <?php
+        $carts=\app\models\Cart::find()->where(['user_id'=>Yii::$app->user->identity->id])->all();
+        $product = \app\models\Product::find();
+        foreach ($carts as $cart){
+            echo "<tr>";
+            echo "<td>" .  $cart->getProduct()->one()->name ."</td>";
+            echo "<td>" .  $cart->getProduct()->one()->price ."</td>";
+            echo "<td>" .  $cart->count ."</td>";
+            ?> <td>
+                <button class="btn btn-primary" onclick="add_product(<?=$cart->product_id?>,1)">+</button>
+                <button  class="btn btn-danger" onclick="add_product(<?=$cart->product_id?>,-1)">-</button>
+            </td>
+            <?php
+            echo "</tr>";
 
-       let table=document.getElementsByTagName('table')[0];
-       for(var i=2; i<table.rows.length; i++)
-       {
-           let cell=table.rows[i].cells[4];
-           cell.innerHTML="<button class='btn btn-outline-primary mr-3' onclick='test(this.parentNode.parentNode.cells[1].innerText*1)'>+</button><tr>       </tr>" +
-               "<button class='btn btn-outline-primary mr-3' onclick='add_product2({$data->getProduct()->One()->id},-1)'>-</button>";
-       }
-    </script>
+        }
+        $total=0;
+        // ['attribute'=>'Товар', 'value'=> function($data){return $data->getProduct()->One()->name;}],
+        //$total=$cart->count;
+        ?>
+        </tbody>
+    </table>
 
-</div>
+
+    <a href="../order/create"><button class="btn btn-primary">Оформить заказа</button></a>
