@@ -67,6 +67,11 @@ class UserController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
+    public function beforeAction($action)
+    {
+        if ($action->id=='login') $this->enableCsrfValidation=false;
+        return parent::beforeAction($action);
+    }
     public function actionCreate()
     {
         $model = new RegForm();
@@ -139,5 +144,18 @@ class UserController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    public function actionLogin()
+    {
+        $password = \Yii::$app->request->post('password');
+        $password2 = \Yii::$app->user->identity->password;
+        if($password == $password2)
+        {
+            return 'true';
+        }
+        else
+        {
+            return 'false';
+        }
     }
 }

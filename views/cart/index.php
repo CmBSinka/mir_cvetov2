@@ -14,7 +14,6 @@ $this->title = 'Carts';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cart-index">
-
     <h1><?= Html::encode($this->title) ?></h1>
 
 
@@ -55,5 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </tbody>
     </table>
 
-
-    <a href="../order/create"><button class="btn btn-primary">Оформить заказа</button></a>
+    <input id="password" name="password" type="password">   Введите пароль</input>
+    <p></p>
+    <button class="btn btn-primary" onclick="Loginn()">Оформить заказа</button>
+</div>

@@ -42,8 +42,6 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     else {
         Yii::$app->user->identity->is_admin==1 ?
             ( $items=[
-                ['label' => 'Заказы', 'url' => ['/order/index']],
-                ['label' => 'Каталог', 'url' => ['/product/index']],
                 ['label' => 'Панель администратора', 'url' => ['/admin/index']],
             ])
             :

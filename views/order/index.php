@@ -32,9 +32,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute'=>'Товар', 'value'=> function($data){return $data->getProduct()->One()->name;}],
             'count',
             'status',
-            //'reason',
+            'reason',
+            'date',
+            [
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, Order $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'id' => $model->id]);
+                 }
+            ],
         ],
-    ]); ?>
 
+    ]); ?>
 
 </div>

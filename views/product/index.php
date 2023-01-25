@@ -30,12 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'name',
             'price',
             'country',
-            'image',
-            'category_id',
+            //'image',
+            ['attribute'=>'Фото', 'format'=>'html', 'value'=> function($data){return "<img src='{$data->image}' alt='photo' style='width: 70px;'>";}],
+           // 'category_id',
+            ['attribute'=>'Категория', 'value'=> function($data){return $data->getCategory()->One()->categoria;}],
             'color',
             'count',
             'data',

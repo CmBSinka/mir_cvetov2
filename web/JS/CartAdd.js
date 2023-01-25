@@ -25,9 +25,36 @@ function add_product(id, items){
         })
 }
 
-function test(cells)
+function Loginn()
 {
-   let a=cells;
-   let product= this.parentNode//.parentNode.rows[1].value
-   let i=0;
+    var formdata = new FormData();
+    let pass = document.getElementById("password").value;
+    formdata.append("password", pass);
+    var requestOptions = {
+        method: 'POST',
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch("https://pr-yanulyavichus.сделай.site/user/login", requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            let title=document.getElementById('staticBackdropLabel');
+            let body=document.getElementById('modalBody');
+            if (result=='false')
+            {
+
+                title.innerText='Ошибка';
+                body.innerHTML="<p>Неверный пароль</p>"
+                let myModal = new
+                bootstrap.Modal(document.getElementById("staticBackdrop"), {});
+                myModal.show();
+            }
+            else
+            {
+                document.location.href="../order/create";
+            }
+        })
+
+        .catch(error => console.log('error', error));
 }
